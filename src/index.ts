@@ -1,0 +1,7 @@
+class PluginsService {
+
+}
+
+export {
+  PluginsService,
+};
