@@ -56,13 +56,13 @@ jobs:
       # Install dependencies
       - run:
           name: Install dependencies using Yarn
-          commnad: yarn install
+          command: yarn install
       # Save dependencies
       - *save_dependencies
       # Build library
       - run:
           name: Build library
-          commnad: yarn rebuild
+          command: yarn rebuild
       # Save build into workspace
       - *persist_workspace
 
