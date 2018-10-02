@@ -9,15 +9,20 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "yarn compile && yarn babel && yarn resolveDefs",
-    "rebuild": "yarn clean && yarn build",
-    "compile": "tsc --build tsconfig.build.json",
     "babel": "babel lib --out-dir lib",
+    "build": "yarn up && yarn compile && yarn babel && yarn resolveDefs && yarn buildCss",
+    "buildCss": "node scripts/buildCss.js",
+    "clean": "rm -rf ./lib",
+    "compile": "tsc --build tsconfig.build.json",
+    "removeTypes": "rm -rf ./node_modules/@types",
+    "rebuild": "yarn clean && yarn build && yarn removeTypes",
     "resolveDefs": "node scripts/resolveDefinitions.js",
     "test": "jest",
-    "clean": "rm -rf ./lib"
+    "up": "yarn install --check-files"
   },
-  "dependencies": {},
+  "dependencies": {
+    "graphql-tag": "^2.9.2"
+  },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
@@ -32,6 +37,7 @@
     "babel-plugin-module-resolver": "^3.1.1",
     "eslint": "^5.6.0",
     "jest": "^23.5.0",
+    "node-sass": "^4.9.3",
     "ts-jest": "^23.1.4",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
