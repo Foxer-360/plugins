@@ -49,7 +49,7 @@ class Navigations {
     this.context = context;
     this.client = client;
     this.listeners = [] as string[];
-    this.context.writeProperty('navigation', null);
+    this.context.writeProperty('navigations', null);
 
     // Add listeners on context
     let id = this.context.addListener('language', () => {
@@ -70,7 +70,7 @@ class Navigations {
     });
 
     this.context = context;
-    this.context.writeProperty('navigation', null);
+    this.context.writeProperty('navigations', null);
 
     let id = this.context.addListener('language', () => {
       this.resolveNavigations();
@@ -85,7 +85,7 @@ class Navigations {
   }
 
   public writeConfig(config: ILooseObject) {
-    this.context.writeProperty('navigation', null);
+    this.context.writeProperty('navigations', null);
     this.resolveNavigations();
   }
 
@@ -128,7 +128,7 @@ class Navigations {
       const urls = res[1].data.pagesUrls;
       const transformed = this.transformNavigationsIntoTree(navigations, urls);
 
-      this.context.writeProperty('navigation', transformed);
+      this.context.writeProperty('navigations', transformed);
     });
   }
 
