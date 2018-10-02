@@ -1,2 +1,3 @@
 import List from './list';
-export { List, };
+import Navigations from './navigations';
+export { List, Navigations, };

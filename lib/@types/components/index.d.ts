@@ -1,3 +1,4 @@
 import Info from './Info';
 import List from './List';
-export { Info, List, };
+import Navigations from './Navigations';
+export { Info, List, Navigations, };
