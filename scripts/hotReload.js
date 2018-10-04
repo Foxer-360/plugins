@@ -153,12 +153,6 @@ const main = () => {
 
   console.log(green('Hot reload is running...\n'));
   addWatchRecursive(srcDir);
-  // // Run watches
-  // const options = {
-  //   persistent: true,
-  //   recursive: true,
-  // };
-  // fs.watch(dirPath, options, debounce(watchListener, 100));
 };
 
 // Just run main function
