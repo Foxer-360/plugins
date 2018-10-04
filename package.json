@@ -9,16 +9,17 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "babel": "babel lib --out-dir lib",
-    "build": "yarn up && yarn compile && yarn babel && yarn resolveDefs && yarn buildCss",
+    "babel": "babel build --out-dir lib",
+    "build": "yarn compile && yarn babel && yarn resolveDefs && yarn buildCss",
     "buildCss": "node scripts/buildCss.js",
     "clean": "rm -rf ./lib",
+    "cleanOnlyTypes": "rm -rf ./lib/@types",
     "compile": "tsc --build tsconfig.build.json",
-    "removeTypes": "rm -rf ./node_modules/@types",
-    "rebuild": "yarn clean && yarn build && yarn removeTypes",
+    "rebuild": "yarn cleanOnlyTypes && yarn build",
     "resolveDefs": "node scripts/resolveDefinitions.js",
     "test": "jest",
-    "up": "yarn install --check-files"
+    "up": "yarn install --check-files",
+    "hot": "yarn up && node scripts/hotReload.js"
   },
   "dependencies": {
     "graphql-tag": "^2.9.2"
@@ -29,6 +30,7 @@
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
+    "@babel/preset-stage-3": "^7.0.0",
     "@babel/preset-typescript": "^7.0.0",
     "@types/jest": "^23.3.1",
     "@types/node": "^10.9.4",
