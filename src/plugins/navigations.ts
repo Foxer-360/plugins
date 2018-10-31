@@ -12,8 +12,10 @@ const NAVIGATION_QUERY = gql`
         }
       }
     ) {
+      id
       name
       nodes {
+        id
         page
         title
         link
