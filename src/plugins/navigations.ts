@@ -120,9 +120,6 @@ class Navigations {
           });
         });
 
-        // tslint:disable-next-line:no-console
-        console.log('listOfPages', listOfPages);
-
         return Promise.all([
           Promise.resolve(navigations.data.navigations),
           this.client.query({ query: GET_PAGES_URLS, variables: { ids: listOfPages, language } })
