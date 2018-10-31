@@ -15,6 +15,8 @@ const NAVIGATION_QUERY = gql`
       name
       nodes {
         page
+        title
+        link
         order
         parent
       }
@@ -30,6 +32,7 @@ const GET_PAGES_URLS = gql`
         language: $language
       }
     ) {
+      id
       page
       url
       name
@@ -103,33 +106,35 @@ class Navigations {
     }
 
     this.client.query({ query: NAVIGATION_QUERY, variables: { website } })
-    .then((navigations: ILooseObject) => {
-      const listOfPages = [] as string[];
-      navigations.data.navigations.forEach((nav: ILooseObject) => {
-        nav.nodes.forEach((node: ILooseObject) => {
-          const index = listOfPages.indexOf(node.page);
-          if (index > -1) {
-            return;
-          }
-          listOfPages.push(node.page);
+      .then((navigations: ILooseObject) => {
+        const listOfPages = [] as string[];
+        navigations.data.navigations.forEach((nav: ILooseObject) => {
+          nav.nodes.forEach((node: ILooseObject) => {
+            const index = listOfPages.indexOf(node.page);
+            if (index > -1) {
+              return;
+            }
+            if (node.page) {
+              listOfPages.push(node.page);
+            }
+          });
         });
+
+        return Promise.all([
+          Promise.resolve(navigations.data.navigations),
+          this.client.query({ query: GET_PAGES_URLS, variables: { ids: listOfPages, language } })
+        ]);
+      })
+      .then((res: ILooseObject[]) => {
+        const navigations = res[0] as ILooseObject[];
+        if (!res[1].data || !res[1].data.pagesUrls) {
+          return;
+        }
+        const urls = res[1].data.pagesUrls;
+        const transformed = this.transformNavigationsIntoTree(navigations, urls);
+
+        this.context.writeProperty('navigations', transformed);
       });
-
-      return Promise.all([
-        Promise.resolve(navigations.data.navigations),
-        this.client.query({ query: GET_PAGES_URLS, variables: { ids: listOfPages, language } })
-      ]);
-    })
-    .then((res: ILooseObject[]) => {
-      const navigations = res[0] as ILooseObject[];
-      if (!res[1].data || !res[1].data.pagesUrls) {
-        return;
-      }
-      const urls = res[1].data.pagesUrls;
-      const transformed = this.transformNavigationsIntoTree(navigations, urls);
-
-      this.context.writeProperty('navigations', transformed);
-    });
   }
 
   private transformNavigationsIntoTree(navigation: ILooseObject[], urls: ILooseObject[]): ILooseObject | null {
@@ -156,9 +161,14 @@ class Navigations {
           ...node,
           ...url,
         } as ILooseObject;
-        const children = this.buildNavTree(nav, node.page, urls);
-        if (children && children.length > 0) {
-          item.children = children;
+        if (node.page) {
+          const children = this.buildNavTree(nav, node.page, urls);
+          if (children && children.length > 0) {
+            item.children = children;
+          }
+        }
+        if (node.title && node.link) {
+          item.url = node.link;
         }
 
         res.push(item);
