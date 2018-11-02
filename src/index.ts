@@ -1,15 +1,19 @@
+import * as React from 'react';
+
 import {
   Info,
   Languages as LanguagesComponent,
   List as ListComponent,
   Navigations as NavigationsComponent,
+  Seo as SeoComponent,
 } from '@source/components';
+
 import {
   Languages as LanguagesPlugin,
   List as ListPlugin,
   Navigations as NavigationsPlugin,
+  Seo as SeoPlugin,
 } from '@source/plugins';
-import * as React from 'react';
 
 class PluginsService {
 
@@ -23,13 +27,15 @@ class PluginsService {
         return 'Navigations';
       case 'languages':
         return 'Languages';
+      case 'seo':
+        return 'SEO';
       default:
         return `Undefined (${type})`;
     }
   }
 
   public getPluginTypes(): string[] {
-    return ['navigations', 'languages'];
+    return ['navigations', 'languages', 'seo'];
   }
 
   public getPluginComponent(type: string): typeof React.Component | null {
@@ -42,6 +48,8 @@ class PluginsService {
         return NavigationsComponent;
       case 'languages':
         return LanguagesComponent;
+      case 'seo':
+        return SeoComponent;
       default:
         return null;
     }
@@ -55,6 +63,8 @@ class PluginsService {
         return NavigationsPlugin;
       case 'languages':
         return LanguagesPlugin;
+      case 'seo':
+        return SeoPlugin;
       default:
         return null;
     }

@@ -1,4 +1,5 @@
 import Languages from './languages';
 import List from './list';
 import Navigations from './navigations';
-export { Languages, List, Navigations, };
+import Seo from './seo';
+export { Languages, List, Navigations, Seo, };

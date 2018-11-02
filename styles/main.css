@@ -1,0 +1,5 @@
+@import url(../src/components/Seo/styles.css);
+@import url(../src/components/Seo/components/SeoSettings/components/partials/FacebookSnippet/styles.css);
+@import url(../src/components/Seo/components/SeoSettings/components/partials/GooglePlusSnippet/styles.css);
+@import url(../src/components/Seo/components/SeoSettings/components/partials/GoogleSnippet/styles.css);
+@import url(../src/components/Seo/components/SeoSettings/components/partials/TwitterSnippet/styles.css);

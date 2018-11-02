@@ -4,7 +4,6 @@ import gql from 'graphql-tag';
 type Context = any; // tslint-disable-line:no-any
 
 const WEBSITE_QUERY = gql`
-
   query website($website: ID!) {
     website(
       where: {

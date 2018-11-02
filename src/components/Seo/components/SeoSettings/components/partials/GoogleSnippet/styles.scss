@@ -1,0 +1,26 @@
+.c-googleSnippet {
+  max-width: 600px;
+  padding: 20px;
+  border: 1px solid #e1e8ed;
+  font-family: arial;
+  word-break: break-all;
+
+  &__title {
+    font-size: 18px;
+  }
+
+  &__title a {
+    color: #1a0dab;
+  }
+
+  &__url {
+    font-size: 14px;
+    color: #006621;
+  }
+
+  &_text {
+    font-size: small;
+    line-height: 1.4;
+    color: #545454;
+  }
+}
