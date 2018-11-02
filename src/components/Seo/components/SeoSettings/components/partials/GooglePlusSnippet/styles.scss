@@ -1,0 +1,117 @@
+.c-googlePlusSnippet {
+    max-width: 530px;
+    min-width: 280px;
+    width: 100%;
+    padding-bottom: 10px;
+    outline: none;
+    -moz-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    background-color: #fff;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    text-align: start;
+    word-break: break-all;
+
+    &__inner {
+        margin: 20px;
+    }
+
+    &__head {
+        margin-top: 10px;
+
+        img {
+            float: left;
+            display: block;
+            width: 36px;
+            height: 36px;
+            margin-top: -9px;
+        }
+
+        &__author {
+            float: left;
+            margin-left: 5px;
+            line-height: 18px;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -moz-box-flex: auto;
+            flex: auto;
+
+            &__name {
+                margin-left: 6px;
+                max-width: 100%;
+                white-space: nowrap;
+                float: left;
+                display: -webkit-box;
+                display: -moz-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                -moz-box-flex: auto;
+                flex: auto;
+                color: rgba(0, 0, 0, 0.87);
+                font-size: 14px;
+                font-weight: 500;
+            }
+
+            &__type {
+                color: rgba(0, 0, 0, 0.54);
+                font-size: 14px;
+                line-height: 18px;
+                white-space: nowrap;
+                word-break: break-all;
+                font-weight: 500;
+
+                &__arrow {
+                    display: inline-block;
+                    width: 18px;
+                    height: 18px;
+                    vertical-align: middle;
+
+                    svg {
+                        color: rgba(0, 0, 0, 0.54);
+                        font-size: 14px;
+                        line-height: 18px;
+                        white-space: nowrap;
+                        word-break: break-all;
+                    }
+                }
+            }
+        }
+    }
+
+    &__entry {
+        margin-top: 10px;
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        font-size: 14px;
+        border-bottom: 1px solid #ebebeb;
+    }
+
+    &__title {
+        margin-bottom: 16px;
+        color: rgba(0, 0, 0, 0.87);
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 28px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        max-height: 56px;
+    }
+
+    &__image {
+
+        img {
+            width: 100%;
+        }
+    }
+}
