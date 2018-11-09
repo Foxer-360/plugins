@@ -1,4 +1,4 @@
-import { ILooseObject } from './lib\@types\types';
+import { ILooseObject } from '../types';
 declare type Context = any;
 declare class Navigations {
     private context;

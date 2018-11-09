@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ILooseObject } from './lib\@types\types';
+import { ILooseObject } from '../../../../../../types';
 interface ISeoWidgetProps {
     title?: string;
     description?: string;
