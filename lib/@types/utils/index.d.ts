@@ -1,4 +1,4 @@
-import { ILooseObject } from '../types';
+import { ILooseObject } from './lib\@types\types';
 /**
  * This will return passed function, but debounced by given parameter
  *

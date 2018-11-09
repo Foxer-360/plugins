@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ILooseObject } from '../../../../types';
+import { ILooseObject } from './lib\@types\types';
 interface ISeoSettingsProps {
     currentPage: string | null;
     currentLanguage: string | null;

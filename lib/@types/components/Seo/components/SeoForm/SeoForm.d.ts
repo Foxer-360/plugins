@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ILooseObject } from '../../../../types';
+import { ILooseObject } from './lib\@types\types';
 import { ISeoPluginData } from '../../Seo';
 interface ISeoFormProps {
     loading: boolean;

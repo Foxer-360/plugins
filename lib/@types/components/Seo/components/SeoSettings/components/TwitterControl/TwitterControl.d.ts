@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ILooseObject } from '../../../../../../types';
+import { ILooseObject } from './lib\@types\types';
 interface ITwitterControlProps {
     image: string;
     title: string;

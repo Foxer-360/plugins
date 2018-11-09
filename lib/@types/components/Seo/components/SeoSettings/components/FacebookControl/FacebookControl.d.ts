@@ -1,5 +1,5 @@
 import React from 'react';
-import { ILooseObject } from '../../../../../../types';
+import { ILooseObject } from './lib\@types\types';
 interface IFacebookControlProps {
     image: string;
     title: string;

@@ -1,4 +1,4 @@
-import { ILooseObject } from '../../types';
+import { ILooseObject } from './lib\@types\types';
 import * as React from 'react';
 interface IProperties {
     config?: ILooseObject;

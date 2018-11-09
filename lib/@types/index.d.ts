@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Languages as LanguagesPlugin, List as ListPlugin, Navigations as NavigationsPlugin, Seo as SeoPlugin } from './plugins';
+import { Languages as LanguagesPlugin, List as ListPlugin, Navigations as NavigationsPlugin, Seo as SeoPlugin } from './lib\@types\plugins';
 declare class PluginsService {
     getPluginTabName(type: string): string;
     getPluginTypes(): string[];

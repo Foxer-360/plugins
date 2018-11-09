@@ -1,4 +1,4 @@
-import { ILooseObject } from '../types';
+import { ILooseObject } from './lib\@types\types';
 declare type Context = any;
 declare class Seo {
     private context;
