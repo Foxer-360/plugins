@@ -38,6 +38,7 @@ const GET_PAGES_URLS = gql`
       page
       url
       name
+      description
     }
   }
 `;
