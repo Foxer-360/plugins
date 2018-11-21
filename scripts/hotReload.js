@@ -112,10 +112,15 @@ const watchListener = (root) => (eventType, filename) => {
   }
 
   console.log(`${isDir ? 'Folder' : 'File'} ${blue(path.relative(srcDir, fullPath))} was changed ! ${red('Rebuilding...')}`);
+  try {
+    execSync('yarn rebuild', {
+      cwd: rootDir,
+      stdio:[0,1,2]
+    });
+  } catch (e) {
+    console.log(red('Rebuild failed.'));
+  }
 
-  execSync('yarn rebuild', {
-    cwd: rootDir,
-  });
   console.log(green('Done...'));
 };
 
