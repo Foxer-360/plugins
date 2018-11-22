@@ -3,49 +3,66 @@ import * as React from 'react';
 // import { Query } from 'react-apollo';
 // import { queries } from '@source/services/graphql';
 import SeoForm from './components/SeoForm';
+import { adopt } from 'react-adopt';
+import gql from 'graphql-tag';
+import { Query, Mutation } from 'react-apollo';
 
-// import './styles.css';
 
-/*const PagePluginQuery = adopt({
-  language: ({ render }) => (
-    <Query query={queries.LOCAL_SELECTED_LANGUAGE}>
-      {({ data: { language } }) => {
-        return render(language);
-      }}
-    </Query>
-  ),
-  page: ({ render }) => (
-    <Query query={queries.LOCAL_SELECTED_PAGE}>
-      {({ data: { page }}) => {
-        return render(page);
-      }}
-    </Query>
-  ),
-  plugin: ({ page, language, render }) => (
-    <Query
-      query={queries.PAGE_PLUGINS}
-      variables={{ page, language, plugin: 'seo' }}
-    >
-      {({ loading, data: { pagePlugins }, error }) => {
-        if (loading || error) {
-          return render(loading);
-        }
 
-        let plugin: {} = null;
+const GET_SEO_PLUGIN_DATA = gql`
+  query getSeoPluginData($pageId: !ID, $languageCode: !String) {
+    pagePlugins(where: { AND: [{page: { id: $pageId } }, {language: { code: $languageCode }}] }) {
+      id
+      page
+      language
+      plugin
+      content
+    }
+  }
+`;
 
-        pagePlugins.forEach((pagePlugin: LooseObject) => {
-          if (plugin === null) {
-            if (pagePlugin.language && pagePlugin.language.id === language && pagePlugin.content) {
-              plugin = pagePlugin;
+export const SAVE_PAGE_PLUGIN = gql`
+    mutation savePagePlugin(
+        $page: ID,
+        $language: ID,
+        $plugin: String!,
+        $content: Json,
+    ) {
+        savePagePlugin(
+            data: {
+                page: {
+                    connect: {
+                        id: $page
+                    }
+                },
+                language: {
+                    connect: {
+                        id: $language
+                    }
+                },
+                plugin: $plugin,
+                content: $content
             }
-          }
-        });
+        ) {
+            id
+            plugin
+            content
+        }
+    }
+`;
 
-        return render(plugin);
-      }}
+const ComposedQuery = adopt({
+  getSeoByPageAndLanguage: ({ render }) => (
+    <Query>
+      {({ data }) => render(data)}
     </Query>
+  ),
+  savePagePlugin: ({ render }) => (
+    <Mutation> {
+      {({ data }) => render(data)}
+    }}</Mutation>
   )
-});*/
+});
 
 interface ISeoProps {
   currentPage: string;
@@ -93,16 +110,23 @@ class Seo extends React.Component<ISeoProps, ISeoState> {
 
   public render() {
     return (
-      <SeoForm
-        {...this.props}
-        page={null} // data.page}
-        language={null} // data.language}
-        loading={this.props.loading}
-        data={null} // pluginData}
-        pages={this.state.pages}
-        onChangeData={(seoData: any) => this.handleChange(seoData)}
-        useSocialMetaForAll={true}
-      />);
+      <ComposedQuery>
+        {({ savePagePlugin, }) => {
+        
+          
+          return (<SeoForm
+            {...this.props}
+            page={null} // data.page}
+            language={null} // data.language}
+            loading={this.props.loading}
+            data={null} // pluginData}
+            pages={this.state.pages}
+            onChangeData={(seoData: any) => this.handleChange(seoData)}
+            useSocialMetaForAll={true}
+          />);
+        
+        }}
+      </ComposedQuery>);
 
       /*<PagePluginQuery>
         {(data: any) => {

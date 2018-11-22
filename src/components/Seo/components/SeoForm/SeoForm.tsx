@@ -48,9 +48,10 @@ class SeoForm extends React.Component<ISeoFormProps, ISeoFormState> {
     if (loading || !this.props) {
       return null;
     }
-
+    console.log(this.state);
     return (
       <div className="content__holder">
+        aaaaa
         <SeoSettings
           {...this.props}
           currentPage={this.props.page || null}
