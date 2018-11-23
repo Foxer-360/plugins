@@ -1,7 +1,6 @@
 import React from 'react';
 import { ILooseObject } from '@source/types';
 import { Col, Form, Input, Row } from 'antd';
-// import MediaLibrary from 'components/MediaLibrary';
 import GooglePlusSnippet from '../partials/GooglePlusSnippet';
 
 const placeholder = 'https://www.collaboraoffice.com/wp-content/' +
@@ -12,11 +11,7 @@ interface IGooglePlusControlProps {
   title: string;
   publisher: string;
   url?: string;
-
-  updateTitle: (value: string) => void;
-  updatePublisher: (value: string) => void;
-  updateImage: (value: string) => void;
-
+  updateSeoField: (value: ILooseObject) => void;
   rowFormItemLayout: ILooseObject;
 }
 
@@ -28,6 +23,7 @@ class GooglePlusControl extends React.Component<IGooglePlusControlProps> {
   };
 
   public render() {
+    const { updateSeoField } = this.props;
     return (
       <div>
         <Row>
@@ -35,11 +31,17 @@ class GooglePlusControl extends React.Component<IGooglePlusControlProps> {
             <h2>Social media - Google+</h2>
 
             <Form.Item {...this.props.rowFormItemLayout} label="Publisher">
-              <Input value={this.props.publisher} onChange={(e: any) => this.props.updatePublisher(e.target.value)}/>
+              <Input 
+                value={this.props.publisher} 
+                onChange={(e: ILooseObject) => updateSeoField({ googlePlusPublisher: e.target.value })}
+              />
             </Form.Item>
 
             <Form.Item {...this.props.rowFormItemLayout} label="Title">
-              <Input value={this.props.title} onChange={(e: any) => this.props.updateTitle(e.target.value)} />
+              <Input 
+                value={this.props.title} 
+                onChange={(e: ILooseObject) => updateSeoField({ googlePlusTitle: e.target.value })}
+              />
             </Form.Item>
 
             {/*<Form.Item {...this.props.rowFormItemLayout} label="Image">
@@ -56,14 +58,6 @@ class GooglePlusControl extends React.Component<IGooglePlusControlProps> {
       </div>
     );
   }
-
-  /*private isReady(props: GooglePlusControlProps) {
-    if (props.image && props.title) {
-      return true;
-    }
-
-    return false;
-  }*/
 
   private gatherGooglePlusData(props: IGooglePlusControlProps) {
     return {

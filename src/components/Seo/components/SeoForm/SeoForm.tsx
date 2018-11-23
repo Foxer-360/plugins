@@ -18,11 +18,7 @@ interface ISeoFormProps {
   useSocialMetaForAll: boolean;
 }
 
-interface ISeoFormState {
-  data: ISeoPluginData | null;
-}
-
-class SeoForm extends React.Component<ISeoFormProps, ISeoFormState> {
+class SeoForm extends React.Component<ISeoFormProps, any> {
 
   public constructor(props: ISeoFormProps) {
     super(props);
@@ -51,14 +47,9 @@ class SeoForm extends React.Component<ISeoFormProps, ISeoFormState> {
     console.log(this.state);
     return (
       <div className="content__holder">
-        aaaaa
         <SeoSettings
-          {...this.props}
-          currentPage={this.props.page || null}
-          currentLanguage={this.props.language || null}
-
           url={this.state.data && this.state.data.url || ''}
-          pages={this.props.pages}
+
 
           title={this.state.data && this.state.data.title || ''}
           description={this.state.data && this.state.data.description || ''}
@@ -74,9 +65,6 @@ class SeoForm extends React.Component<ISeoFormProps, ISeoFormState> {
           googlePlusTitle={this.state.data && this.state.data.googlePlusTitle || ''}
           googlePlusPublisher={this.state.data && this.state.data.googlePlusPublisher || ''}
           googlePlusImage={this.state.data && this.state.data.googlePlusImage || ''}
-
-          loading={loading}
-
           updateTitle={(data: string) => this.handleChangeData({ title: data })}
           updateDescription={(data: string) => this.handleChangeData({ description: data })}
           updateFocusKeyword={(data: string) => this.handleChangeData({ focusKeyword: data })}
@@ -84,32 +72,9 @@ class SeoForm extends React.Component<ISeoFormProps, ISeoFormState> {
           updateFacebookPublisher={(data: string) => this.handleChangeData({ facebookPublisher: data })}
           updateFacebookDescription={(data: string) => this.handleChangeData({ facebookDescription: data })}
           updateFacebookImage={(data: string) => this.handleChangeData({ facebookImage: data })}
-          updateTwitterTitle={(data: string) => this.handleChangeData({ twitterTitle: data })}
-          updateTwitterPublisher={(data: string) => this.handleChangeData({ twitterPublisher: data })}
-          updateTwitterDescription={(data: string) => this.handleChangeData({ twitterDescription: data })}
-          updateTwitterImage={(data: string) => this.handleChangeData({ twitterImage: data })}
-          updateGooglePlusTitle={(data: string) => this.handleChangeData({ googlePlusTitle: data })}
-          updateGooglePlusPublisher={(data: string) => this.handleChangeData({ googlePlusPublisher: data })}
-          updateGooglePlusImage={(data: string) => this.handleChangeData({ googlePlusImage: data })}
         />
       </div>
     );
-  }
-
-  private handleChangeData(data: ILooseObject | null) {
-    if (data) {
-      const newData = {...this.state.data} as ISeoPluginData;
-      Object.keys(data).forEach((key: string) => {
-        newData[key] = data[key];
-      });
-      this.setState({
-        data: newData,
-      }, () => {
-        if (this.props.onChangeData) {
-          this.props.onChangeData(this.state.data);
-        }
-      });
-    }
   }
 }
 

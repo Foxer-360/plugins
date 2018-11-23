@@ -12,10 +12,7 @@ interface ITwitterControlProps {
   description: string;
   publisher: string;
 
-  updateTitle: (value: string) => void;
-  updatePublisher: (value: string) => void;
-  updateDescription: (value: string) => void;
-  updateImage: (value: string) => void;
+  updateSeoField: (value: ILooseObject) => void;
 
   rowFormItemLayout: ILooseObject;
 }
@@ -28,6 +25,7 @@ class TwitterControl extends Component<ITwitterControlProps> {
   };
 
   public render() {
+    const { updateSeoField } = this.props;
     return (
       <div>
         <Row>
@@ -35,18 +33,18 @@ class TwitterControl extends Component<ITwitterControlProps> {
             <h2>Social media - Twitter</h2>
 
             <Form.Item {...this.props.rowFormItemLayout} label="Publisher">
-              <Input value={this.props.publisher} onChange={(e: any) => this.props.updatePublisher(e.target.value)} />
+              <Input value={this.props.publisher} onChange={(e: any) => updateSeoField({ twitterPublisher: e.target.value })} />
             </Form.Item>
 
             <Form.Item {...this.props.rowFormItemLayout} label="Title">
-              <Input value={this.props.title} onChange={(e: any) => this.props.updateTitle(e.target.value)} />
+              <Input value={this.props.title} onChange={(e: any) => updateSeoField({ twitterTitle: e.target.value })} />
             </Form.Item>
 
             <Form.Item {...this.props.rowFormItemLayout} label="Description">
               <Input
                 type="textarea"
                 value={this.props.description}
-                onChange={(e: any) => this.props.updateDescription(e.target.value)}
+                onChange={(e: any) => updateSeoField({ twitterDescription: e.target.value })}
               />
             </Form.Item>
 

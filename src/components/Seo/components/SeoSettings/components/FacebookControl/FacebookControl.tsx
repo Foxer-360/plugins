@@ -13,12 +13,7 @@ interface IFacebookControlProps {
   description: string;
   publisher: string;
   url?: string;
-
-  updateTitle: (value: string) => void;
-  updatePublisher: (value: string) => void;
-  updateDescription: (value: string) => void;
-  updateImage: (value: string) => void;
-
+  updateSeoField: (value: ILooseObject) => void;
   rowFormItemLayout: ILooseObject;
 }
 

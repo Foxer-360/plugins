@@ -1,20 +1,20 @@
 import * as React from 'react';
-// import { adopt } from 'react-adopt';
-// import { Query } from 'react-apollo';
-// import { queries } from '@source/services/graphql';
 import SeoForm from './components/SeoForm';
 import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
 
-
+const GET_CONTEXT = gql`
+{
+  page @client
+  language @client
+}
+`;
 
 const GET_SEO_PLUGIN_DATA = gql`
-  query getSeoPluginData($pageId: !ID, $languageCode: !String) {
-    pagePlugins(where: { AND: [{page: { id: $pageId } }, {language: { code: $languageCode }}] }) {
+  query getSeoPluginData($page: ID!, $language: ID!) {
+    pagePlugins(where: { AND: [{page: { id: $page } }, {language: { id: $language }}] }) {
       id
-      page
-      language
       plugin
       content
     }
@@ -52,15 +52,22 @@ export const SAVE_PAGE_PLUGIN = gql`
 `;
 
 const ComposedQuery = adopt({
-  getSeoByPageAndLanguage: ({ render }) => (
-    <Query>
+  getContext: ({ render }) => (
+    <Query query={GET_CONTEXT} >
       {({ data }) => render(data)}
     </Query>
   ),
+  getSeoByPageAndLanguage: ({ render, getContext: { page, language } }) => (
+    <Query query={GET_SEO_PLUGIN_DATA} variables={{ page, language }}>
+      {({ data }) => {
+        return render(data);
+      }}
+    </Query>
+  ),
   savePagePlugin: ({ render }) => (
-    <Mutation> {
-      {({ data }) => render(data)}
-    }}</Mutation>
+    <Mutation mutation={SAVE_PAGE_PLUGIN}>
+      {(savePagePlugin) => render(savePagePlugin)}
+    </Mutation>
   )
 });
 
@@ -69,10 +76,6 @@ interface ISeoProps {
   onChange: (data: any) => void;
   initData: any;
   loading: boolean;
-}
-
-interface ISeoState {
-  pages: any[];
 }
 
 export interface ISeoPluginData {
@@ -96,14 +99,12 @@ export interface ISeoPluginData {
   googlePlusImage: string;
 }
 
-class Seo extends React.Component<ISeoProps, ISeoState> {
+class Seo extends React.Component<ISeoProps, any> {
 
   constructor(props: ISeoProps) {
     super(props);
 
-    this.state = {
-      pages: [],
-    };
+    this.state = {};
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -111,36 +112,24 @@ class Seo extends React.Component<ISeoProps, ISeoState> {
   public render() {
     return (
       <ComposedQuery>
-        {({ savePagePlugin, }) => {
-        
-          
+        {({ savePluginData, getSeoByPageAndLanguage }) => {
+
           return (<SeoForm
             {...this.props}
             page={null} // data.page}
             language={null} // data.language}
             loading={this.props.loading}
-            data={null} // pluginData}
+            data={(getSeoByPageAndLanguage.length > 0 && getSeoByPageAndLanguage[0]) || null} // pluginData}
             pages={this.state.pages}
             onChangeData={(seoData: any) => this.handleChange(seoData)}
             useSocialMetaForAll={true}
           />);
-        
         }}
       </ComposedQuery>);
-
-      /*<PagePluginQuery>
-        {(data: any) => {
-          const pluginData = (data && data.plugin && data.plugin.content ? data.plugin.content : null);
-
-          });
-        }}
-      </PagePluginQuery>*/
   }
 
   private handleChange(data: any) {
-    if (this.props.onChange) {
-      this.props.onChange(data);
-    }
+      this.setState({...data});
   }
 }
 

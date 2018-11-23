@@ -22,7 +22,9 @@
     "hot": "yarn up && node scripts/hotReload.js"
   },
   "dependencies": {
-    "graphql-tag": "^2.9.2"
+    "graphql-tag": "^2.9.2",
+    "react-adopt": "^0.6.0",
+    "react-apollo": "^2.3.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
